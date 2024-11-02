@@ -1,9 +1,11 @@
+import { Link } from "react-router-dom";
+
 export default function DonationList() {
     let donationList = [];
     for (let i=0; i<30; i++) {
         if (i === 0) {
             donationList.push(
-                <div key={0}
+                <Link to="/new-donation" key={0}
                     className="basis-[20%] px-2 pb-4">
                     <button className="w-full h-full
                         flex flex-col justify-center items-center bg-white fill-gray text-gray
@@ -15,11 +17,11 @@ export default function DonationList() {
                         </svg>
                         <span className="font-semibold ml-2 text-xl">Add Your Donation</span>
                     </button>
-                </div>
+                </Link>
             )
         } else {
             donationList.push(
-                <div key={i+1}
+                <Link to="/detail" key={i+1}
                     className="basis-[20%] px-2 pb-4">
                     <button className="donationItem rounded-md bg-white shadow-md
                         duration-200 active:scale-90">
@@ -53,7 +55,7 @@ export default function DonationList() {
                             </div>
                         </div>
                     </button>
-                </div>
+                </Link>
             )
         }
     }
