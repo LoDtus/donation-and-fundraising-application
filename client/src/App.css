@@ -42,3 +42,10 @@ p, span, div, a {
 body {
     margin: 0;
 }
+
+.donationItem:hover .donationItem_thumbnail {
+    transform: translateY(-8px);
+}
+.ant-pagination-options {
+    /* display: none !important; */
+}
