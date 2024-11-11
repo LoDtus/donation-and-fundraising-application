@@ -4,6 +4,7 @@ import Footer from "./components/Footer"
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import DonationDetail from "./pages/DonationDetail";
+import PostEditor from "./pages/PostEditor";
 
 export default function App() {
 	return (
@@ -16,8 +17,8 @@ export default function App() {
 						element={<Home/>}
 					/>
 					<Route
-						path="/new-donation"
-						element={<DonationDetail/>}
+						path="/editor"
+						element={<PostEditor/>}
 					/>
 					<Route
 						path="/detail"

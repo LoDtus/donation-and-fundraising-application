@@ -5,7 +5,7 @@ export default function DonationList() {
     for (let i=0; i<30; i++) {
         if (i === 0) {
             donationList.push(
-                <Link to="/new-donation" key={0}
+                <Link to="/editor" key={0}
                     className="basis-[20%] px-2 pb-4">
                     <button className="w-full h-full
                         flex flex-col justify-center items-center bg-white fill-gray text-gray
