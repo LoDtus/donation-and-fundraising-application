@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { useDispatch, useSelector } from 'react-redux';
 import 'ckeditor5/ckeditor5.css';
 import './style.css';
 
@@ -59,6 +60,8 @@ import {
 	Underline,
 	Undo
 } from 'ckeditor5';
+import { getContent, getNew, getPreview } from '../../redux/selectors';
+import postSlice from '../../slices/postSlice';
 
 export default function App() {
 	const editorContainerRef 	= useRef(null);
@@ -66,14 +69,15 @@ export default function App() {
 	const editorToolbarRef 		= useRef(null);
 	const editorRef				= useRef(null);
 	const previewRef			= useRef(null);
-	const [initialData, setInitialData] = useState('');
+	const [initialData, setInitialData] 	= useState('');
 	const [isLayoutReady, setIsLayoutReady] = useState(false);
+	const [editorReady, setEditorReady] 	= useState(false);
+	const [previewReady, setPreviewReady] 	= useState(false);
 
-	useEffect(() => {
-		setIsLayoutReady(true);
-
-		return () => setIsLayoutReady(false);
-	}, []);
+	const dispatch 	= useDispatch();
+	const content	= useSelector(getContent);
+	const isNew		= useSelector(getNew);
+	const isPreview = useSelector(getPreview);
 
 	const editorConfig = {
 		toolbar: {
@@ -249,28 +253,53 @@ export default function App() {
 		}
 	};
 
+	useEffect(() => {
+		setIsLayoutReady(true);
+		return () => setIsLayoutReady(false);
+	}, []);
+
+	useEffect(() => {
+		if (isNew && isLayoutReady && editorRef.current.setData) {
+			editorRef.current.setData('');
+		}
+	}, [isNew]);
+
+	useEffect(() => {
+		if (!isPreview && isLayoutReady && editorRef.current.setData) {
+			editorRef.current.setData(content);
+		}
+	}, [editorReady, content]);
+
+	useEffect(() => {
+		if (isPreview && previewRef && previewReady) {
+			const editableElement = previewRef.current.ui.view.editable.element;
+            editableElement.contentEditable = false;
+			previewRef.current.setData(content);
+		}
+	}, [previewReady, content]);
+
 	return (
-		<div className=''>
+		<div className='w-full'>
 			<div className="main-container">
 				<div className="editor-container editor-container_document-editor" ref={editorContainerRef}>
-					{/* {isPreview ? <div></div> : 
+					{isPreview ? <div></div> :
 						<div>
 							<div className="editor-container__menu-bar" ref={editorMenuBarRef}></div>
 							<div className="editor-container__toolbar my-1" ref={editorToolbarRef}></div>
 						</div>
-					}					 */}
-					<div className="editor-container__editor-wrapper
+					}
+					<div className="editor-container__editor-wrapper w-full
 						bg-white border border-gray-border">
 						<div className="editor-container__editor">
 							<div className=''>
-								{isLayoutReady && (
+								{isLayoutReady&& !isPreview && (
 									<CKEditor
 										ref={editorRef}
 										onReady={editor => {
 											editorRef.current = editor;
 											editorToolbarRef.current.appendChild(editor.ui.view.toolbar.element);
 											editorMenuBarRef.current.appendChild(editor.ui.view.menuBarView.element);
-											// setEditorReady(true);
+											setEditorReady(true);
 										}}
 										onAfterDestroy={() => {
 											if (editorToolbarRef.current)
@@ -282,16 +311,16 @@ export default function App() {
 										config={editorConfig}
 										data={''}
 										onBlur={(event, editor) => {
-											// setValue(editor.getData());
+											dispatch(postSlice.actions.setContent(editor.getData()));
 										}}
 									/>
 								)}
-								{isLayoutReady && (
+								{isLayoutReady && isPreview && (
 									<CKEditor
 										ref={previewRef}
 										onReady={editor => {
 											previewRef.current = editor;
-											// setPreviewReady(true);
+											setPreviewReady(true);
 										}}
 										editor={DecoupledEditor}
 										config={editorConfig}
