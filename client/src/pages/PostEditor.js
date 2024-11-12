@@ -2,12 +2,16 @@ import Editor from '../components/CKEditor/Editor';
 
 export default function PostEditor() {
     return (
-        <div className='w-full h-full px-10 flex'>
-            <div className="basis-[75%] w-full h-full pr-2 border">
+        <div className='lg:flex
+            w-full min-h-[85vh] px-10'>
+            <div className="basis-[75%] flex flex-col w-full">
                 <Editor/>
             </div>
-            <div className="basis-[25%] w-full h-full bg-white rounded-md">
-                
+            <div className="lg:pl-2 lg:mt-0 mt-2
+                basis-[25%] w-full min-h-full ">
+                <div className='h-full bg-white border rounded-md flex justify-center items-center'>
+                    Donate
+                </div>
             </div>
         </div>
     )

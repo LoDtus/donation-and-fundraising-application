@@ -5,6 +5,7 @@ export default createSlice({
     initialState: {
         id: null,
         thumbnail:  '',
+        title:      '',
         content:    '',
         introduce:  '',
         modifyAt:   '',
@@ -19,6 +20,7 @@ export default createSlice({
         setPostById: (state, action) => {
             state.id = action.payload.id;
             state.thumbnail = action.payload.thumbnail;
+            state.title     = action.payload.title;
             state.content   = action.payload.content;
             state.introduce = action.payload.introduce;
             state.modifyAt  = action.payload.modifyAt;

@@ -279,56 +279,53 @@ export default function App() {
 	}, [previewReady, content]);
 
 	return (
-		<div className='w-full'>
-			<div className="main-container">
-				<div className="editor-container editor-container_document-editor" ref={editorContainerRef}>
-					{isPreview ? <div></div> :
-						<div>
-							<div className="editor-container__menu-bar" ref={editorMenuBarRef}></div>
-							<div className="editor-container__toolbar my-1" ref={editorToolbarRef}></div>
-						</div>
-					}
-					<div className="editor-container__editor-wrapper w-full
-						bg-white border border-gray-border">
-						<div className="editor-container__editor">
-							<div className=''>
-								{isLayoutReady&& !isPreview && (
-									<CKEditor
-										ref={editorRef}
-										onReady={editor => {
-											editorRef.current = editor;
-											editorToolbarRef.current.appendChild(editor.ui.view.toolbar.element);
-											editorMenuBarRef.current.appendChild(editor.ui.view.menuBarView.element);
-											setEditorReady(true);
-										}}
-										onAfterDestroy={() => {
-											if (editorToolbarRef.current)
-												Array.from(editorToolbarRef.current.children).forEach(child => child.remove());
-											if (editorMenuBarRef.current)
-												Array.from(editorMenuBarRef.current.children).forEach(child => child.remove());
-										}}
-										editor={DecoupledEditor}
-										config={editorConfig}
-										data={''}
-										onBlur={(event, editor) => {
-											dispatch(postSlice.actions.setContent(editor.getData()));
-										}}
-									/>
-								)}
-								{isLayoutReady && isPreview && (
-									<CKEditor
-										ref={previewRef}
-										onReady={editor => {
-											previewRef.current = editor;
-											setPreviewReady(true);
-										}}
-										editor={DecoupledEditor}
-										config={editorConfig}
-										data={''}
-									/>
-								)}
-							</div>
-						</div>
+		<div className='main-container'>
+			<div className="editor-container editor-container_document-editor" ref={editorContainerRef}>
+				{isPreview ? <div></div> :
+					<div>
+						<div className="editor-container__menu-bar
+							border-x border-t border-gray-border" ref={editorMenuBarRef}></div>
+						<div className="editor-container__toolbar my-[4px]" ref={editorToolbarRef}></div>
+					</div>
+				}
+				<div className="editor-container__editor-wrapper
+					bg-white border border-gray-border">
+					<div className="editor-container__editor">
+						{isLayoutReady&& !isPreview && (
+							<CKEditor
+								ref={editorRef}
+								onReady={editor => {
+									editorRef.current = editor;
+									editorToolbarRef.current.appendChild(editor.ui.view.toolbar.element);
+									editorMenuBarRef.current.appendChild(editor.ui.view.menuBarView.element);
+									setEditorReady(true);
+								}}
+								onAfterDestroy={() => {
+									if (editorToolbarRef.current)
+										Array.from(editorToolbarRef.current.children).forEach(child => child.remove());
+									if (editorMenuBarRef.current)
+										Array.from(editorMenuBarRef.current.children).forEach(child => child.remove());
+								}}
+								editor={DecoupledEditor}
+								config={editorConfig}
+								data={''}
+								onBlur={(event, editor) => {
+									dispatch(postSlice.actions.setContent(editor.getData()));
+								}}
+							/>
+						)}
+						{isLayoutReady && isPreview && (
+							<CKEditor
+								ref={previewRef}
+								onReady={editor => {
+									previewRef.current = editor;
+									setPreviewReady(true);
+								}}
+								editor={DecoupledEditor}
+								config={editorConfig}
+								data={''}
+							/>
+						)}
 					</div>
 				</div>
 			</div>
