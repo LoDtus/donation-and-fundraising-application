@@ -67,6 +67,7 @@ export default function App() {
 	const editorContainerRef 	= useRef(null);
 	const editorMenuBarRef 		= useRef(null);
 	const editorToolbarRef 		= useRef(null);
+	const containerRef			= useRef(null);
 	const editorRef				= useRef(null);
 	const previewRef			= useRef(null);
 	const [initialData, setInitialData] 	= useState('');
@@ -274,6 +275,9 @@ export default function App() {
 		if (isPreview && previewRef && previewReady) {
 			const editableElement = previewRef.current.ui.view.editable.element;
             editableElement.contentEditable = false;
+			editableElement.style.background = '#f2f5f9';
+			//scroll
+			containerRef.current.classList.add('!border-none');
 			previewRef.current.setData(content);
 		}
 	}, [previewReady, content]);
@@ -288,7 +292,8 @@ export default function App() {
 						<div className="editor-container__toolbar my-[4px]" ref={editorToolbarRef}></div>
 					</div>
 				}
-				<div className="editor-container__editor-wrapper
+				<div ref={containerRef}
+					className="editor-container__editor-wrapper
 					bg-white border border-gray-border">
 					<div className="editor-container__editor">
 						{isLayoutReady&& !isPreview && (

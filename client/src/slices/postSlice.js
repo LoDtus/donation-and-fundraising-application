@@ -14,7 +14,7 @@ export default createSlice({
         isLiked:    '',
         isSaved:    '',
         isNew:      false,
-        isPreview:  true,
+        isPreview:  false,
     },
     reducers: {
         setPostById: (state, action) => {

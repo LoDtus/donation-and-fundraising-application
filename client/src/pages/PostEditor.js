@@ -1,4 +1,5 @@
 import Editor from '../components/CKEditor/Editor';
+import DonationInfo from '../components/DonationInfo';
 
 export default function PostEditor() {
     return (
@@ -9,8 +10,8 @@ export default function PostEditor() {
             </div>
             <div className="lg:pl-2 lg:mt-0 mt-2
                 basis-[25%] w-full min-h-full ">
-                <div className='h-full bg-white border rounded-md flex justify-center items-center'>
-                    Donate
+                <div className='h-full bg-white border border-gray-border flex justify-start py-3 px-3'>
+                    <DonationInfo/>
                 </div>
             </div>
         </div>
