@@ -49,3 +49,7 @@ body {
 .ant-pagination-options {
     /* display: none !important; */
 }
+
+.input-thumbnail span {
+    background-color: white;
+}
