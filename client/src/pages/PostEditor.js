@@ -44,14 +44,12 @@ export default function PostEditor() {
                         from uploading company data or other banned files.
                     </p>
 				</Dragger>
-				<Editor />
+				<Editor/>
 			</div>
-			<div
-				className="lg:pl-2 lg:mt-0 mt-2
-                basis-[25%] w-full min-h-full "
-			>
+			<div className="lg:pl-2 lg:mt-0 mt-2
+                basis-[25%] w-full min-h-full">
 				<div className="h-full bg-white border border-gray-border flex justify-start py-3 px-3">
-					<DonationInfo />
+					<DonationInfo/>
 				</div>
 			</div>
 		</div>

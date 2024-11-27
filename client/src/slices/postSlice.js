@@ -43,6 +43,7 @@ export default createSlice({
             state.isNew = action.payload;
         },
         setPreview: (state, action) => {
+            console.log(action.payload);
             state.isPreview = action.payload;
         },
     }
