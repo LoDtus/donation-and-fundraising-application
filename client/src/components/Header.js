@@ -1,15 +1,18 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'antd';
+import accessSlice from '../slices/accessSlice';
 
 export default function Header() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     function signIn() {
-
+        dispatch(accessSlice.actions.setSignIn(true));
     }
 
     function signUp() {
-
+        dispatch(accessSlice.actions.setSignUp(true));
     }
 
     return (

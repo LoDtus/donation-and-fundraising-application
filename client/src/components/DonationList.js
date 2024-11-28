@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import postSlice from '../slices/postSlice';
 
 export default function DonationList() {
-    const navigate = useNavigate();
+    const navigate  = useNavigate();
     const dispatch  = useDispatch();
 
     function move2Editor() {
